@@ -27,7 +27,7 @@ Example:
    (branch "main")
    (introduction
     (make-channel-introduction
-     "de6b8f767902d55aba175cd4a695d1a195dc2bcc"
+     "c98b84faada9d373fdc6a189a41e8f54c59354c8"
      (openpgp-fingerprint
       "DC82 E7A3 8F7F CDED 4FC4  2913 628E CE8F AEB0 3809"))))
 #+end_src
@@ -40,7 +40,7 @@ Example =channels.scm=:
 	     (branch "main")
 	     (introduction
 	      (make-channel-introduction
-	       "de6b8f767902d55aba175cd4a695d1a195dc2bcc"
+	       "c98b84faada9d373fdc6a189a41e8f54c59354c8"
 	       (openpgp-fingerprint
 		"DC82 E7A3 8F7F CDED 4FC4  2913 628E CE8F AEB0 3809")))))
 	  %default-channels)
