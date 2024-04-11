@@ -1,0 +1,103 @@
+#+title: Muffin Base
+#+subtitle: A guix channel for custom OS flavors to build on
+
+* Introduction
+With Guix System, I've been working on a setup that will reproduce my
+home and system configuration on a diskless computer. After
+accomplishing this I went back and forth between initiating the system
+from the server and upgrading it from the client. I copied and
+maintained the entire system configuration on both machines, in a way
+that introduced friction whenever I refactored the system or
+introduced a new feature.
+
+So I defined base operating system templates that I can inherit from
+and then fill in with the more specific settings (e.g. where the
+bootloader and root fs are). Incorporating it into a channel to take
+advantage of guix infrastructure is icing on top!
+
+* Adding the channel
+Add the ~(channel ...)~ record for this repo to a ~channels.scm~ file
+for guix.
+
+Example:
+#+begin_src scheme
+  (channel
+   (name 'your-name-for-this-channel)
+   (url "https://github.com/branjam4/muffin-base.git")
+   (branch "main"))
+#+end_src
+
+Example =channels.scm=:
+#+begin_src scheme
+  (append '((channel
+	     (name 'bran-muffin)
+	     (url "https://github.com/branjam4/muffin-base.git")
+	     (branch "main")))
+	  %default-channels)
+#+end_src
+
+Then either:
+1. Place it where guix reads channel info by default
+   (e.g. =~/.config/guix/channels.scm=) and run ~guix pull~, or
+2. Run ~guix pull -C /path/to/other/channels.scm~.
+
+* Using the channel
+=muffin.scm= has sample records which represent data you'd want to use
+across operating system definitions, or overrides for what is there by
+default.
+
+Here's an example =config.scm= based on my own setup:
+#+begin_src scheme
+  (use-modules (gnu)
+	       (gnu services)
+	       (gnu services admin)	 ; hosts-service-type
+	       (gnu system accounts)	 ; for (user-account) record
+	       (gnu system file-systems) ; for (file-systems) record
+	       (muffin system images net)) ; %muffin-net-layer OS templ.
+
+  (define branjam
+    (user-account
+     (name "branjam")
+     (group "users")
+     (supplementary-groups
+      '("audio" "video" "netdev" "input"
+	"wheel")) ; wheel to make this an account admin
+     ;; the other fields (redacted): home-directory, password, comment
+     (...)))
+
+  (define %my-server-file-systems ...)
+  (define %my-net-file-systems ...)
+
+  (define %muffin-os
+    (operating-system
+      (inherit %muffin-net-layer)
+      (host-name "branmuffin")
+      (timezone "Etc/UTC") ; your timezone here
+      (users (cons*
+	      branjam
+	      (operating-system-users %muffin-net-layer)))
+      (services
+       (append
+	(list
+	 (simple-service 'add-extra-hosts
+			 hosts-service-type
+			 (list (host "10.0.0.1" "serverhostname"))))
+	(operating-system-user-services %muffin-net-layer)))
+      (file-systems %bran-net-file-systems)))
+
+  %muffin-os
+#+end_src
+
+* Why use this?
+Overall, I'd recommend subscribing to the popular channels with more
+battle-tested configuration approaches.
+
+But if this repo's approach to configuration provides a promising
+template to customizing your own system, you can borrow from modules
+like ~(muffin system images net)~ by adding the channel to a
+=channels.scm= file (shown above). It may be especially useful
+assuming you have machines similar to mine (x86 systems) and would
+like to scrutinize how I've set up network boot with Guix System.
+
+Or, alternatively, you may be interested in particular packages or
+services here not available in other channels.
