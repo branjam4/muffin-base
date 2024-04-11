@@ -80,7 +80,7 @@ or the built-in hints, customize `repeat-help-popup-type'.")
               (sha256 (base32
                        "0p62wfsxk0sh8lpjm52md8kaixkfagfsl9gpmps76448iznn04m7"))))
     (build-system emacs-build-system)
-    (propagated-inputs (list emacs-s))
+    (propagated-inputs (list emacs-s emacs-compat))
     (home-page "https://github.com/isamert/empv.el")
     (synopsis "A multimedia player/manager, YouTube interface")
     (description
@@ -94,7 +94,6 @@ has versatile customization options.  For an overview of all customization
 options, do `M-x customize-group empv`.")
     (license license:gpl3+))))
 
-;;; Embrace
 (define-public emacs-embrace
   (let ((commit "c7e748603151d7d91c237fd2d9cdf56e9f3b1ea8")
 	(revision "3"))
@@ -121,7 +120,6 @@ use `evil-surround', `embrace' provides similar commands that can be
 found in `evil-surround'.")
       (license license:gpl3+))))
 
-;;; Macrursors
 (define-public emacs-macrursors
   (let ((commit "926d93a4f7b3edb047b79a50f8cfd6072227e94e")
 	(revision "53"))
