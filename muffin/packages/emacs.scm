@@ -80,6 +80,34 @@ The tooltip for each headline shows the values that would be displayed
 if the org file was in org columns view.")
     (license license:gpl3+)))
 
+(define-public emacs-clomacs
+  (let ((commit "2b59130b92e12cb8bc9f51aedaa86e7e9253ef21")
+	(revision "19"))
+    (package
+      (name "emacs-clomacs")
+      (version (git-version "0.0.5" revision commit))
+      (source
+       (origin
+	 (method git-fetch)
+	 (uri (git-reference
+               (url "https://github.com/clojure-emacs/clomacs.git")
+               (commit commit)))
+	 (sha256
+          (base32 "15z4441816fghqgxl0zc9570nh9ldnqf0fbj7cab7vw7ns0n8qkw"))))
+      (build-system emacs-build-system)
+      (propagated-inputs (list emacs-cider emacs-s emacs-simple-httpd emacs-dash))
+      (arguments
+       '(#:include '("^src/elisp/[^/]+.el$")
+	 #:exclude '()))
+      (home-page "https://github.com/clojure-emacs/clomacs")
+      (synopsis "Simplifies Emacs Lisp interaction with Clojure.")
+      (description
+       "`clomacs-defun - core Clojure to Elisp function wrapper.  Elisp to Clojure calls
+helper functions: `clomacs-create-httpd-start - package-specific httpd
+connection setup. `clomacs-create-httpd-stop - package-specific httpd connection
+stop.  See README.md for detailed description.")
+      (license license:gpl3+))))
+
 (define-public emacs-dape
   (package
     (name "emacs-dape")
