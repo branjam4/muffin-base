@@ -18,11 +18,7 @@
   (host-name "jam-core")
   (users (cons* %muffin-user
 		%base-user-accounts))
-  (packages
-   (append
-    (map specification->package
-	 '("nss-certs"))
-    %base-packages))
+  (packages %base-packages)
   (services
    (append
     (list (service openssh-service-type
