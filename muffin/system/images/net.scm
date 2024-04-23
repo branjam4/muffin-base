@@ -42,8 +42,8 @@
 				      '((guix build utils)))
 				   #~(begin
 				       (use-modules ((guix build utils) #:hide (delete)))
-				       (copy-recursively (string-append #$klibc "/lib") "/lib")
-				       (copy-recursively (string-append #$klibc "/usr") "/usr")
+				       (symlink (string-append #$klibc "/lib") "/lib")
+				       (symlink (string-append #$klibc "/usr") "/usr")
 				       (system* "/usr/lib/klibc/bin/ipconfig" "eth0")
 				       #t))
 		     rest)))
