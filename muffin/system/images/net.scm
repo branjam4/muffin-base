@@ -2,6 +2,7 @@
   #:use-module (muffin)
   #:use-module (muffin packages klibc)
   #:use-module (muffin system images core)
+  #:use-module (muffin system linux-initrd)
   #:use-module (gnu)
   #:use-module (gnu packages linux)
   #:use-module (gnu services networking)
@@ -35,16 +36,5 @@
     (kernel-arguments (cons* "ip=dhcp" %default-kernel-arguments))
     (kernel (customize-linux #:linux linux-libre-lts
 			     #:configs '("CONFIG_NFS_SWAP=y")))
-    (initrd (lambda (file-systems . rest)
-	      (apply raw-initrd file-systems
-		     #:pre-mount (with-imported-modules
-				     (source-module-closure
-				      '((guix build utils)))
-				   #~(begin
-				       (use-modules ((guix build utils) #:hide (delete)))
-				       (symlink (string-append #$klibc "/lib") "/lib")
-				       (symlink (string-append #$klibc "/usr") "/usr")
-				       (system* "/usr/lib/klibc/bin/ipconfig" "eth0")
-				       #t))
-		     rest)))
+    (initrd net-initrd)
     (file-systems %muffin-net-file-systems)))
