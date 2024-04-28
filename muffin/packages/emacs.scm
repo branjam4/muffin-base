@@ -411,3 +411,26 @@ headers, ports, etc. Verb tries to combine the usefulness of Org mode
 with the common functionality provided by other HTTP clients. However,
 very little knowledge of Org mode is needed to use Verb.")
       (license license:gpl3+))))
+
+(define-public emacs-zone-rainbow
+  (let ((commit "2ba4f1a87c69c4712124ebf12c1f3ea171e1af36")
+	(revision "20160120-1"))
+    (package
+      (name "emacs-zone-rainbow")
+      (version (git-version "0.0.0" revision commit))
+      (source (origin
+		(method git-fetch)
+		(uri (git-reference
+                      (url "https://github.com/kawabata/zone-rainbow.git")
+                      (commit commit)))
+		(sha256
+		 (base32
+		  "0w550l9im3mhxhja1b7cr9phdcbvx5lprw551lj0d1lv7qvjasz0"))))
+      (build-system emacs-build-system)
+      (home-page "https://github.com/kawabata/zone-rainbow")
+      (synopsis "Zone out with rainbow")
+      (description
+       "This code is inspired by <https://gist.github.com/mrkuc/7121179>.
+
+It can be directly invoked by `M-x zone-rainbow`.")
+      (license license:gpl3+))))
