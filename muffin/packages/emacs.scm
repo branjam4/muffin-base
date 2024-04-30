@@ -80,6 +80,43 @@ The tooltip for each headline shows the values that would be displayed
 if the org file was in org columns view.")
     (license license:gpl3+)))
 
+(define-public emacs-casual
+  (package
+    (name "emacs-casual")
+    (version "20240416.2237")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/kickingvegas/Casual.git")
+             (commit "a22cf128c3baa3e11f6aaff7dc44ef91cf0fe9ce")))
+       (sha256
+        (base32 "0sx3hqpp8ikp3avzcj4d601zh80rs7qi2azl0vmgc4ymrd7g1af8"))))
+    (build-system emacs-build-system)
+    (arguments
+     (list
+        #:include #~(cons* "^docs/"
+			   "^scripts/"
+			   %default-include)
+	#:exclude #~(cons* "^tests/"
+			   %default-exclude)
+	#:phases
+	#~(modify-phases %standard-phases
+            (add-after 'unpack 'move-clients-libraries
+            (lambda _
+              (for-each (lambda (f)
+                          (install-file f "."))
+                        (find-files "lisp/" "\\.el$")))))))
+    (inputs
+     (list python))
+    (home-page "https://github.com/kickingvegas/casual")
+    (synopsis "Transient UI for Calc")
+    (description
+     "Casual is an opinionated Transient-based porcelain for Emacs Calc.  INSTALLATION
+(require casual) (define-key calc-mode-map (kbd \"C-o\") casual-main-menu)")
+    (license license:gpl3+)))
+
+
 (define-public emacs-clomacs
   (let ((commit "2b59130b92e12cb8bc9f51aedaa86e7e9253ef21")
 	(revision "19"))
