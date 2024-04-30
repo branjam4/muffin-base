@@ -1,6 +1,7 @@
 (define-module (muffin packages emacs)
   #:use-module (gnu packages)
   #:use-module (gnu packages emacs-xyz)
+  #:use-module (gnu packages python)
   #:use-module (guix build-system emacs)
   #:use-module (guix download)
   #:use-module (guix gexp)
