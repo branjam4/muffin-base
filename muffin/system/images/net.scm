@@ -6,6 +6,7 @@
   #:use-module (gnu)
   #:use-module (gnu packages linux)
   #:use-module (gnu services networking)
+  #:use-module (gnu services nfs)
   #:use-module (guix)
   #:use-module (srfi srfi-1)
   #:export (%muffin-net-layer))
