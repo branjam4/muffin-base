@@ -7,7 +7,6 @@
   #:use-module (gnu packages linux)
   #:use-module (gnu services networking)
   #:use-module (guix)
-  #:use-module (guix modules)
   #:use-module (srfi srfi-1)
   #:export (%muffin-net-layer))
 
@@ -17,7 +16,10 @@
     (host-name "muffinet")
     (services
      (append
-      (list (service dhcp-client-service-type))
+      (list (service dhcp-client-service-type)
+	    (service nfs-service-type
+               (nfs-configuration
+                (nfs-versions '("4.2" "4.1")))))
       (remove (lambda (service)
 		(let ((type (service-kind service)))
 		  (or (memq type
