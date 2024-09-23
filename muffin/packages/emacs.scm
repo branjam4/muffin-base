@@ -81,45 +81,6 @@ The tooltip for each headline shows the values that would be displayed
 if the org file was in org columns view.")
     (license license:gpl3+)))
 
-(define-public emacs-casual
-  (let ((commit "3966fdd42686d234f69382ceb2e83a5b82ad60e7")
-	(revision "1"))
-    (package
-      (name "emacs-casual")
-      (version (git-version "1.11.3" revision commit))
-      (source
-       (origin
-	 (method git-fetch)
-	 (uri (git-reference
-               (url "https://github.com/kickingvegas/Casual.git")
-               (commit commit)))
-	 (sha256
-          (base32 "0640hq1nc5n7y6jzkbf0qn8lmprzhzllzkna9zbiqkia4jxcp9ws"))))
-      (build-system emacs-build-system)
-      (arguments
-       (list
-        #:include #~(cons* "^docs/"
-			   "^scripts/"
-			   %default-include)
-	#:exclude #~(cons* "^tests/"
-			   %default-exclude)
-	#:phases
-	#~(modify-phases %standard-phases
-            (add-after 'unpack 'move-clients-libraries
-              (lambda _
-		(for-each (lambda (f)
-                            (install-file f "."))
-                          (find-files "lisp/" "\\.el$")))))))
-      (inputs
-       (list python))
-      (home-page "https://github.com/kickingvegas/casual")
-      (synopsis "Transient UI for Calc")
-      (description
-       "Casual is an opinionated Transient-based porcelain for Emacs Calc.  INSTALLATION
-(require casual) (define-key calc-mode-map (kbd \"C-o\") casual-main-menu)")
-      (license license:gpl3+))))
-
-
 (define-public emacs-clomacs
   (let ((commit "2b59130b92e12cb8bc9f51aedaa86e7e9253ef21")
 	(revision "19"))
@@ -147,31 +108,6 @@ helper functions: `clomacs-create-httpd-start - package-specific httpd
 connection setup. `clomacs-create-httpd-stop - package-specific httpd connection
 stop.  See README.md for detailed description.")
       (license license:gpl3+))))
-
-(define-public emacs-dape
-  (package
-    (name "emacs-dape")
-    (version "0.15.0")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (string-append "https://elpa.gnu.org/packages/dape-" version
-                           ".tar"))
-       (sha256
-        (base32 "0l684hygqvh5d842b6j01g28k8lzjlqm2r6w6aaagvdwyhy5k2j5"))))
-    (build-system emacs-build-system)
-    (propagated-inputs (list emacs-jsonrpc))
-    (home-page "https://github.com/svaante/dape")
-    (synopsis "Debug Adapter Protocol for Emacs")
-    (description
-     "Features:
- ⁃ Log breakpoints
-⁃ Conditional breakpoints ⁃ Variable explorer ⁃ Variable watch ⁃ Variable hover
-with `eldoc ⁃ REPL ⁃ gdb-mi.el like interface ⁃ Memory viewer with `hexl ⁃
-`compile integration ⁃ Debug adapter configuration ergonomics ⁃ No dependencies
-(except for jsonrpc which is part of emacs but needed version is not part of
-latest stable emacs release 29.1-1 but available on elpa).")
-    (license license:gpl3+)))
 
 (define-public emacs-elfeed-tube
   (let ((commit "0c3fbc21259e1fa794f3179a53b410ba610231f2")
