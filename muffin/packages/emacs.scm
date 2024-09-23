@@ -45,14 +45,14 @@ resulting boxy diagram.")
 (define-public emacs-boxy-headings
   (package
     (name "emacs-boxy-headings")
-    (version "2.1.5")
+    (version "2.1.6")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "https://elpa.gnu.org/packages/boxy-headings-"
                            version ".tar"))
        (sha256
-        (base32 "0w3cy2r8iqsb79r33lllj08v719hq0xniq5pbr9sl8kn2raxcjhr"))))
+        (base32 "0wnks9a4agvqjivp9myl8zcdq6rj7hh5ig73f8qv5imar0i76izc"))))
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-boxy emacs-org))
     (home-page "https://gitlab.com/grinn.amy/boxy-headings")
@@ -82,20 +82,22 @@ if the org file was in org columns view.")
     (license license:gpl3+)))
 
 (define-public emacs-casual
-  (package
-    (name "emacs-casual")
-    (version "20240416.2237")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/kickingvegas/Casual.git")
-             (commit "a22cf128c3baa3e11f6aaff7dc44ef91cf0fe9ce")))
-       (sha256
-        (base32 "0sx3hqpp8ikp3avzcj4d601zh80rs7qi2azl0vmgc4ymrd7g1af8"))))
-    (build-system emacs-build-system)
-    (arguments
-     (list
+  (let ((commit "3966fdd42686d234f69382ceb2e83a5b82ad60e7")
+	(revision "1"))
+    (package
+      (name "emacs-casual")
+      (version (git-version "1.11.3" revision commit))
+      (source
+       (origin
+	 (method git-fetch)
+	 (uri (git-reference
+               (url "https://github.com/kickingvegas/Casual.git")
+               (commit commit)))
+	 (sha256
+          (base32 "0640hq1nc5n7y6jzkbf0qn8lmprzhzllzkna9zbiqkia4jxcp9ws"))))
+      (build-system emacs-build-system)
+      (arguments
+       (list
         #:include #~(cons* "^docs/"
 			   "^scripts/"
 			   %default-include)
@@ -104,18 +106,18 @@ if the org file was in org columns view.")
 	#:phases
 	#~(modify-phases %standard-phases
             (add-after 'unpack 'move-clients-libraries
-            (lambda _
-              (for-each (lambda (f)
-                          (install-file f "."))
-                        (find-files "lisp/" "\\.el$")))))))
-    (inputs
-     (list python))
-    (home-page "https://github.com/kickingvegas/casual")
-    (synopsis "Transient UI for Calc")
-    (description
-     "Casual is an opinionated Transient-based porcelain for Emacs Calc.  INSTALLATION
+              (lambda _
+		(for-each (lambda (f)
+                            (install-file f "."))
+                          (find-files "lisp/" "\\.el$")))))))
+      (inputs
+       (list python))
+      (home-page "https://github.com/kickingvegas/casual")
+      (synopsis "Transient UI for Calc")
+      (description
+       "Casual is an opinionated Transient-based porcelain for Emacs Calc.  INSTALLATION
 (require casual) (define-key calc-mode-map (kbd \"C-o\") casual-main-menu)")
-    (license license:gpl3+)))
+      (license license:gpl3+))))
 
 
 (define-public emacs-clomacs
@@ -149,14 +151,14 @@ stop.  See README.md for detailed description.")
 (define-public emacs-dape
   (package
     (name "emacs-dape")
-    (version "0.10.0")
+    (version "0.15.0")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "https://elpa.gnu.org/packages/dape-" version
                            ".tar"))
        (sha256
-        (base32 "1x6mbis4vmghp3vf4pxyzdp68nnrraw9ayx3gzbp1bvcmr62qdig"))))
+        (base32 "0l684hygqvh5d842b6j01g28k8lzjlqm2r6w6aaagvdwyhy5k2j5"))))
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-jsonrpc))
     (home-page "https://github.com/svaante/dape")
@@ -172,8 +174,8 @@ latest stable emacs release 29.1-1 but available on elpa).")
     (license license:gpl3+)))
 
 (define-public emacs-elfeed-tube
-  (let ((commit "92c66d6adcebe0588ccf811616decf7ef8a8ac65")
-	(revision "20"))
+  (let ((commit "0c3fbc21259e1fa794f3179a53b410ba610231f2")
+	(revision "22"))
     (package
       (name "emacs-elfeed-tube")
       (version (git-version "0.15" revision commit))
@@ -184,12 +186,12 @@ latest stable emacs release 29.1-1 but available on elpa).")
                       (commit commit)))
 		(sha256
 		 (base32
-		  "1w22n54gm8my4r4kvi2id6s2wghsqdazzk168v79kw8kfw32vyy9"))))
+		  "0hg2s5yzpd1fsl0fyrfv2cc2m61a67drfg86msfqpqdmkv30pbca"))))
       (build-system emacs-build-system)
       (propagated-inputs (list emacs-elfeed emacs-aio))
       (arguments
-       '(#:include '("^elfeed-tube.el$" "^elfeed-tube-utils.el$")
-	 #:exclude '()))
+       '(#:include '(".el$")
+	 #:exclude '("^elfeed-tube-mpv.el$")))
       (home-page "https://github.com/karthink/elfeed-tube")
       (synopsis "YouTube integration for Elfeed")
       (description
@@ -268,18 +270,18 @@ found in `evil-surround'.")
       (license license:gpl3+))))
 
 (define-public emacs-empv
-  (let ((commit "c48cd223b145806a6a36167c299e9a0384a5f2e6")
-	(revision "1"))
+  (let ((commit "7177a3fba0c1fe2a04f23c50840d7dec19958454")
+	(revision "8"))
     (package
     (name "emacs-empv")
-    (version (git-version "4.1.0" revision commit))
+    (version (git-version "4.5.0" revision commit))
     (source (origin
               (method git-fetch)
               (uri (git-reference
                     (url "https://github.com/isamert/empv.el.git")
                     (commit commit)))
               (sha256 (base32
-                       "0p62wfsxk0sh8lpjm52md8kaixkfagfsl9gpmps76448iznn04m7"))))
+                       "1x45ldkgdx2x30iqx302wcicw2ijavbdbzr13g88nwq3h7n9ydzw"))))
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-s emacs-compat))
     (home-page "https://github.com/isamert/empv.el")
@@ -419,8 +421,8 @@ or the built-in hints, customize `repeat-help-popup-type'.")
       (license license:gpl3+))))
 
 (define-public emacs-verb
-  (let ((commit "ac6c0ca3777431268e1f5a540c003aa16345381d")
-	(revision "6"))
+  (let ((commit "7becfb48d9744e8c6333ce186b4acaea2cb5d540")
+	(revision "83"))
     (package
       (name "emacs-verb")
       (version (git-version "2.16.0" revision commit))
@@ -431,7 +433,7 @@ or the built-in hints, customize `repeat-help-popup-type'.")
                       (commit commit)))
 		(sha256
 		 (base32
-		  "15w7m7an2i353yrq9njdcxyawawck2yvaq4ys9m8213wvach21ay"))))
+		  "130jiklhb06lp8d8lrdlalq1qbl9kd382qqn1lmnfxn3xbkzarnr"))))
       (build-system emacs-build-system)
       (home-page "https://github.com/federicotdn/verb")
       (synopsis "Organize and send HTTP requests")
