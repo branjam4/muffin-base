@@ -23,7 +23,7 @@
   (cons* (file-system
            (mount-point "/")
            (device
-            "/dev/sda1")
+            "/dev/sdX")
            (type "ext4"))
          %base-file-systems))
 

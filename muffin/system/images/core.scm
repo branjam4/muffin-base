@@ -11,21 +11,15 @@
 
 (define %jam-core
  (operating-system
-  (locale "en_US.utf8")
-  (locale-libcs (list (canonical-package glibc)))
-  (timezone "Etc/UTC")
   (keyboard-layout (keyboard-layout "us"))
   (host-name "jam-core")
   (users (cons* %muffin-user
 		%base-user-accounts))
-  (packages %base-packages)
   (services
    (append
     (list (service openssh-service-type
 		   (openssh-configuration
-		    (allow-empty-passwords? #t)
-		    (gateway-ports? #t)
-		    (x11-forwarding? #t)))
+		    (accepted-environment '("COLORTERM"))))
 	  (set-xorg-configuration
 	   (xorg-configuration
 	    (keyboard-layout keyboard-layout)))
@@ -55,6 +49,7 @@
 					   (inherit config)
 					   (auto-suspend? #f)
 					   (xdmcp? #t))))))
+  (name-service-switch %mdns-host-lookup-nss)
   (bootloader
    (bootloader-configuration
     (bootloader grub-efi-bootloader)
