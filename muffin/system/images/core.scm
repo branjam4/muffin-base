@@ -19,6 +19,7 @@
    (append
     (list (service openssh-service-type
 		   (openssh-configuration
+		    (permit-root-login 'prohibit-password)
 		    (accepted-environment '("COLORTERM"))))
 	  (set-xorg-configuration
 	   (xorg-configuration
