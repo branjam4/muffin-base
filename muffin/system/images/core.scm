@@ -42,7 +42,7 @@
 				 "fuzzel"
 				 "waybar-experimental"
 				 "wtype"
-				 "xremap-sway"
+				 "xremap-wlroots"
 				 "bemenu"))))
     (modify-services
 		%desktop-services
