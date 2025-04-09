@@ -12,14 +12,14 @@
 (define-public emacs-boxy
   (package
     (name "emacs-boxy")
-    (version "1.1.4")
+    (version "2.0.0")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "https://elpa.gnu.org/packages/boxy-" version
                            ".tar"))
        (sha256
-        (base32 "0mwj1qc626f1iaq5iaqm1f4iwyz91hzqhzfk5f53gsqka7yz2fnf"))))
+        (base32 "1vfgwgk3vzzp2cy7n0qwhn7hzjxbp9vzxp1al1pkynv9hfs503gb"))))
     (build-system emacs-build-system)
     (home-page "https://gitlab.com/grinn.amy/boxy")
     (synopsis "A boxy layout framework")
@@ -45,14 +45,14 @@ resulting boxy diagram.")
 (define-public emacs-boxy-headings
   (package
     (name "emacs-boxy-headings")
-    (version "2.1.6")
+    (version "2.1.10")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "https://elpa.gnu.org/packages/boxy-headings-"
                            version ".tar"))
        (sha256
-        (base32 "0wnks9a4agvqjivp9myl8zcdq6rj7hh5ig73f8qv5imar0i76izc"))))
+        (base32 "0a3933yckjw7b8jk5nnlb6hwjf1vzi1ydwk70csmz73402k0jxk1"))))
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-boxy emacs-org))
     (home-page "https://gitlab.com/grinn.amy/boxy-headings")
@@ -110,8 +110,8 @@ stop.  See README.md for detailed description.")
       (license license:gpl3+))))
 
 (define-public emacs-elfeed-tube
-  (let ((commit "0c3fbc21259e1fa794f3179a53b410ba610231f2")
-	(revision "22"))
+  (let ((commit "79d5a08d76ea3ae96d7def9a5e2ede2e3562462a")
+	(revision "34"))
     (package
       (name "emacs-elfeed-tube")
       (version (git-version "0.15" revision commit))
@@ -122,7 +122,7 @@ stop.  See README.md for detailed description.")
                       (commit commit)))
 		(sha256
 		 (base32
-		  "0hg2s5yzpd1fsl0fyrfv2cc2m61a67drfg86msfqpqdmkv30pbca"))))
+		  "0pzxama7qyj9i4x74im5r875b7vv1zrkgfncf5j1qxixj96jzfna"))))
       (build-system emacs-build-system)
       (propagated-inputs (list emacs-elfeed emacs-aio))
       (arguments
@@ -206,24 +206,24 @@ found in `evil-surround'.")
       (license license:gpl3+))))
 
 (define-public emacs-empv
-  (let ((commit "7177a3fba0c1fe2a04f23c50840d7dec19958454")
-	(revision "8"))
+  (let ((commit "f14d4ac96e24368ad4688efc4a71da39804892f0")
+	(revision "25"))
     (package
-    (name "emacs-empv")
-    (version (git-version "4.5.0" revision commit))
-    (source (origin
-              (method git-fetch)
-              (uri (git-reference
-                    (url "https://github.com/isamert/empv.el.git")
-                    (commit commit)))
-              (sha256 (base32
-                       "1x45ldkgdx2x30iqx302wcicw2ijavbdbzr13g88nwq3h7n9ydzw"))))
-    (build-system emacs-build-system)
-    (propagated-inputs (list emacs-s emacs-compat))
-    (home-page "https://github.com/isamert/empv.el")
-    (synopsis "A multimedia player/manager, YouTube interface")
-    (description
-     "An Emacs media player, based on mpv.  More precisely this package provides
+      (name "emacs-empv")
+      (version (git-version "4.10.1" revision commit))
+      (source (origin
+		(method git-fetch)
+		(uri (git-reference
+                      (url "https://github.com/isamert/empv.el.git")
+                      (commit commit)))
+		(sha256 (base32
+			 "06ahark9jin8cfk7d6d82xyhy0pp1yrd03c4lawhyppn1aswkb5z"))))
+      (build-system emacs-build-system)
+      (propagated-inputs (list emacs-s emacs-compat))
+      (home-page "https://github.com/isamert/empv.el")
+      (synopsis "A multimedia player/manager, YouTube interface")
+      (description
+       "An Emacs media player, based on mpv.  More precisely this package provides
 somewhat comprehensive interface to mpv with bunch of convenient functionality
 like an embedded radio manager, @code{YouTube} interface, local music/video
 library manager etc.  Lots of interactive functions are at your disposal.  To
@@ -231,7 +231,7 @@ view the most essential ones, type `M-x describe-keymap empv-map`.  It is
 advised that you bind this keymap to a key for convenience.  Additionally, empv
 has versatile customization options.  For an overview of all customization
 options, do `M-x customize-group empv`.")
-    (license license:gpl3+))))
+      (license license:gpl3+))))
 
 (define-public emacs-macrursors
   (let ((commit "926d93a4f7b3edb047b79a50f8cfd6072227e94e")
@@ -357,24 +357,22 @@ or the built-in hints, customize `repeat-help-popup-type'.")
       (license license:gpl3+))))
 
 (define-public emacs-verb
-  (let ((commit "7becfb48d9744e8c6333ce186b4acaea2cb5d540")
-	(revision "83"))
-    (package
-      (name "emacs-verb")
-      (version (git-version "2.16.0" revision commit))
-      (source (origin
-		(method git-fetch)
-		(uri (git-reference
-                      (url "https://github.com/federicotdn/verb.git")
-                      (commit commit)))
-		(sha256
-		 (base32
-		  "130jiklhb06lp8d8lrdlalq1qbl9kd382qqn1lmnfxn3xbkzarnr"))))
-      (build-system emacs-build-system)
-      (home-page "https://github.com/federicotdn/verb")
-      (synopsis "Organize and send HTTP requests")
-      (description
-       "Verb is a package that allows you to organize and send HTTP requests from Emacs.
+  (package
+    (name "emacs-verb")
+    (version "3.1.0")
+    (source (origin
+	      (method git-fetch)
+	      (uri (git-reference
+                    (url "https://github.com/federicotdn/verb.git")
+                    (commit version)))
+	      (sha256
+	       (base32
+	        "12y2shqhbl21xj18hldg17n03pq3qcycwmswxdwr0pnac8613pq6"))))
+    (build-system emacs-build-system)
+    (home-page "https://github.com/federicotdn/verb")
+    (synopsis "Organize and send HTTP requests")
+    (description
+     "Verb is a package that allows you to organize and send HTTP requests from Emacs.
 
 The package introduces a new minor mode, Verb mode, which works as
 an extension to [Org mode](https://orgmode.org/). The core idea is to
@@ -386,7 +384,7 @@ having to repeat common components as URL hosts, authentication
 headers, ports, etc. Verb tries to combine the usefulness of Org mode
 with the common functionality provided by other HTTP clients. However,
 very little knowledge of Org mode is needed to use Verb.")
-      (license license:gpl3+))))
+    (license license:gpl3+)))
 
 (define-public emacs-zone-rainbow
   (let ((commit "2ba4f1a87c69c4712124ebf12c1f3ea171e1af36")
