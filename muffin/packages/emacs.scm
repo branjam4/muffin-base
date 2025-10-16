@@ -371,6 +371,7 @@ or the built-in hints, customize `repeat-help-popup-type'.")
 	       (base32
 	        "12y2shqhbl21xj18hldg17n03pq3qcycwmswxdwr0pnac8613pq6"))))
     (build-system emacs-build-system)
+    (inputs (list emacs-package-lint emacs-relint))
     (home-page "https://github.com/federicotdn/verb")
     (synopsis "Organize and send HTTP requests")
     (description
