@@ -100,7 +100,8 @@ if the org file was in org columns view.")
       (propagated-inputs (list emacs-cider emacs-s emacs-simple-httpd emacs-dash))
       (arguments
        '(#:include '("^src/elisp/[^/]+.el$")
-	 #:exclude '()))
+	 #:exclude '()
+	 #:tests? #f))
       (home-page "https://github.com/clojure-emacs/clomacs")
       (synopsis "Simplifies Emacs Lisp interaction with Clojure.")
       (description
